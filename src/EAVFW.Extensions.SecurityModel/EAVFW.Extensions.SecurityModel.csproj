@@ -4,6 +4,12 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+
+	  <Title>EAVFW.Extensions.SecurityModel</Title>
+	  <Authors>Poul Kjeldager</Authors>
+	  <Description>Extension for Security Model for EAVFW Application Building</Description>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
+	  <RepositoryUrl>https://github.com/EAVFW/EAVFW.Extensions.SecurityModel</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+	  <None Include="..\..\README.md" Link="README.md" />
 	  <None Include="manifest.extensions.json" Pack="true" PackagePath="eavfw/manifest/" />
   </ItemGroup>
 
