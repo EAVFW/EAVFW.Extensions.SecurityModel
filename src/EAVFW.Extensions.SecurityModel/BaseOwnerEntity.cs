@@ -2,7 +2,9 @@
 using DotNetDevOps.Extensions.EAVFramework.Shared;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Security.Claims;

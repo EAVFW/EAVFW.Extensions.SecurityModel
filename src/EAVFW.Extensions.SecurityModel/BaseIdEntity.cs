@@ -1,6 +1,7 @@
 ﻿using DotNetDevOps.Extensions.EAVFramework;
 using DotNetDevOps.Extensions.EAVFramework.Shared;
 using Newtonsoft.Json;
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
