@@ -1,5 +1,33 @@
 {
 	"variables": {
+		"layouts": {
+			"OneColumnTemplate": {
+				"COLUMN_First": {
+					"sections": {
+						"SECTION_General": {}
+					}
+				}
+			},
+			"TwoColumnsTemplate": {
+				"COLUMN_First": {
+					"sections": {
+						"SECTION_General": {}
+					}
+				},
+				"COLUMN_Second": {
+					"sections": {
+						"SECTION_Additional": {}
+					}
+				}
+			}
+		},
+		"TAB_General": {
+			"title": "General Information",
+			"locale": {
+				"1030": { "title": "General Information" }
+			},
+			"columns": "[variables('layouts').TwoColumnsTemplate]"
+		},
 		"TAB_Administrative": {
 			"title": "Administrative",
 			"locale": {
@@ -87,6 +115,17 @@
 				},
 				"isRowVersion": true
 			}
+		},
+		"translations": {
+			"Name": { "1030": { "displayName": "Navn" } },
+			"Description": { "1030": { "displayName": "Beskrivelse" } }
+		},
+		"sitemaps": {
+			"Administration": {
+				"app": "DefaultApp",
+				"area": "Administration",
+				"group": "Administration"
+			}
 		}
 	},
 	"entities": {
@@ -133,7 +172,7 @@
 					"name": "Main Information",
 					"layout": {
 						"tabs": {
-							"TAB_General": "[variables('layouts').GeneralTabTemplate]",
+							"TAB_General": "[variables('TAB_General')]",
 							"TAB_SecurityRoles": {
 								"title": "Security Roles",
 								"locale": {
@@ -178,7 +217,7 @@
 					"name": "Main Information",
 					"layout": {
 						"tabs": {
-							"TAB_General": "[variables('layouts').GeneralTabTemplate]",
+							"TAB_General": "[variables('TAB_General')]",
 							"TAB_Permissions": {
 								"title": "Permissions",
 								"locale": {
