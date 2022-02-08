@@ -60,6 +60,7 @@ namespace EAVFW.Extensions.SecurityModel
     [BaseEntity]
     [Serializable]
     [GenericTypeArgument(ArgumentName = "TIdentity", ManifestKey = "Identity")]
+    [GenericTypeArgument(ArgumentName = "TSecurityGroup", ManifestKey = "Security Group")]
     public class SecurityGroupMember<TIdentity,TSecurityGroup> : BaseOwnerEntity<TIdentity>
         where TIdentity : DynamicEntity
         where TSecurityGroup : SecurityGroup<TIdentity>
