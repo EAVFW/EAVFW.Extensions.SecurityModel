@@ -15,7 +15,7 @@ namespace EAVFW.Extensions.SecurityModel
     [BaseEntity]
     [Serializable]
     [GenericTypeArgument(ArgumentName = "TIdentity", ManifestKey = "Identity")]
-    public class BaseOwnerEntity<TIdentity> : BaseIdEntity<TIdentity> where TIdentity : DynamicEntity
+    public class BaseOwnerEntity<TIdentity> : BaseIdEntity<TIdentity> where TIdentity : IdentityBase
     {
         [DataMember(Name = "ownerid")]
         [JsonProperty("ownerid")]
@@ -30,8 +30,9 @@ namespace EAVFW.Extensions.SecurityModel
     }
 
     [BaseEntity]
-    [Serializable]     
-    public class PermissionBase<TIdentity> :BaseOwnerEntity<IdentityBase>
+    [Serializable]
+    [GenericTypeArgument(ArgumentName = "TIdentity", ManifestKey = "Identity")]
+    public class PermissionBase<TIdentity> : BaseOwnerEntity<TIdentity> where TIdentity : IdentityBase
     {
         [DataMember(Name = "name")]
         [JsonProperty("name")]
@@ -42,8 +43,8 @@ namespace EAVFW.Extensions.SecurityModel
 
     [BaseEntity]
     [Serializable]
-    
-    public class SecurityRolePermissionBase : BaseOwnerEntity<IdentityBase>
+    [GenericTypeArgument(ArgumentName = "TIdentity", ManifestKey = "Identity")]
+    public class SecurityRolePermissionBase<TIdentity> : BaseOwnerEntity<TIdentity> where TIdentity : IdentityBase
     {
         [DataMember(Name = "permissionid")]
         [JsonProperty("permissionid")]
@@ -59,8 +60,10 @@ namespace EAVFW.Extensions.SecurityModel
     [BaseEntity]
     [Serializable]
     [GenericTypeArgument(ArgumentName = "TSecurityGroup", ManifestKey = "Security Group")]
-    public class SecurityGroupMemberBase<TSecurityGroup> : BaseOwnerEntity<IdentityBase>
-          where TSecurityGroup : SecurityGroupBase
+    [GenericTypeArgument(ArgumentName = "TIdentity", ManifestKey = "Identity")]
+    public class SecurityGroupMemberBase<TSecurityGroup,TIdentity> : BaseOwnerEntity<TIdentity> 
+        where TIdentity : IdentityBase
+          where TSecurityGroup : SecurityGroupBase<TIdentity>
     {
         [DataMember(Name = "securitygroupid")]
         [JsonProperty("securitygroupid")]
@@ -83,8 +86,8 @@ namespace EAVFW.Extensions.SecurityModel
 
     [BaseEntity]
     [Serializable]
-     
-    public class SecurityRoleAssignmentBase: BaseOwnerEntity<IdentityBase>
+    [GenericTypeArgument(ArgumentName = "TIdentity", ManifestKey = "Identity")]
+    public class SecurityRoleAssignmentBase<TIdentity> : BaseOwnerEntity<TIdentity> where TIdentity : IdentityBase
     {
 
         [DataMember(Name = "identityid")]
@@ -100,7 +103,8 @@ namespace EAVFW.Extensions.SecurityModel
 
     [BaseEntity]
     [Serializable]
-    public class RecordShareBase : BaseOwnerEntity<IdentityBase>
+    [GenericTypeArgument(ArgumentName = "TIdentity", ManifestKey = "Identity")]
+    public class RecordShareBase<TIdentity> : BaseOwnerEntity<TIdentity> where TIdentity : IdentityBase
     {
 
         [DataMember(Name = "permissionid")]
@@ -129,7 +133,7 @@ namespace EAVFW.Extensions.SecurityModel
     [BaseEntity]
     [Serializable]
     
-    public class SecurityGroupBase : BaseOwnerEntity<IdentityBase>
+    public class SecurityGroupBase<TIdentity> : BaseOwnerEntity<TIdentity> where TIdentity : IdentityBase
     {
 
         [DataMember(Name = "isbusinessunit")]
@@ -156,13 +160,13 @@ namespace EAVFW.Extensions.SecurityModel
     public class OwnerBasedAuthorizationQueryExtender<
         TIdentity, TPermission, TSecurityRole, TSecurityRolePermission, TSecurityRoleAssignment, TSecurityGroup, TSecurityGroupMember, TRecordShare> : IQueryExtender 
         where TPermission : PermissionBase<TIdentity>
-        where TIdentity : DynamicEntity
+        where TIdentity : IdentityBase
         where TSecurityRole : DynamicEntity
-        where TSecurityRolePermission : SecurityRolePermissionBase
-        where TSecurityRoleAssignment: SecurityRoleAssignmentBase
-        where TSecurityGroup: SecurityGroupBase
-        where TSecurityGroupMember: SecurityGroupMemberBase<TSecurityGroup>
-        where TRecordShare: RecordShareBase
+        where TSecurityRolePermission : SecurityRolePermissionBase<TIdentity>
+        where TSecurityRoleAssignment: SecurityRoleAssignmentBase<TIdentity>
+        where TSecurityGroup: SecurityGroupBase<TIdentity>
+        where TSecurityGroupMember: SecurityGroupMemberBase<TSecurityGroup, TIdentity>
+        where TRecordShare: RecordShareBase<TIdentity>
     {
 
         public IQueryable ApplyTo(IQueryable metadataQuerySet, QueryContext querycontext)
