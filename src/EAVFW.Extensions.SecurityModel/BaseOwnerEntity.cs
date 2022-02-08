@@ -29,7 +29,7 @@ namespace EAVFW.Extensions.SecurityModel
         public TIdentity Owner { get; set; }
     }
 
-    [BaseEntity]
+    [BaseEntity(EntityKey = "Permission")]
     [Serializable]
     [GenericTypeArgument(ArgumentName = "TIdentity", ManifestKey = "Identity")]
     public class PermissionBase<TIdentity> : BaseOwnerEntity<TIdentity> where TIdentity : IdentityBase
