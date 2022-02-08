@@ -11,6 +11,7 @@ namespace EAVFW.Extensions.SecurityModel
 
     [BaseEntity]
     [Serializable]
+    [GenericTypeArgument(ArgumentName = "TIdentity", ManifestKey ="Identity")]
     public class BaseIdEntity<TIdentity> : DynamicEntity where TIdentity : DynamicEntity
     {
 

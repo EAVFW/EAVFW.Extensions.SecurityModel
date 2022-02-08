@@ -14,6 +14,7 @@ namespace EAVFW.Extensions.SecurityModel
 {
     [BaseEntity]
     [Serializable]
+    [GenericTypeArgument(ArgumentName = "TIdentity", ManifestKey = "Identity")]
     public class BaseOwnerEntity<TIdentity> : BaseIdEntity<TIdentity> where TIdentity : DynamicEntity
     {
         [DataMember(Name = "ownerid")]
@@ -30,6 +31,7 @@ namespace EAVFW.Extensions.SecurityModel
 
     [BaseEntity]
     [Serializable]
+    [GenericTypeArgument(ArgumentName = "TIdentity", ManifestKey = "Identity")]
     public class Permission<TIdentity> : BaseOwnerEntity<TIdentity> where TIdentity : DynamicEntity
     {
         [DataMember(Name = "name")]
@@ -41,6 +43,7 @@ namespace EAVFW.Extensions.SecurityModel
 
     [BaseEntity]
     [Serializable]
+    [GenericTypeArgument(ArgumentName = "TIdentity", ManifestKey = "Identity")]
     public class SecurityRolePermission<TIdentity> : BaseOwnerEntity<TIdentity> where TIdentity : DynamicEntity
     {
         [DataMember(Name = "permissionid")]
@@ -56,6 +59,7 @@ namespace EAVFW.Extensions.SecurityModel
 
     [BaseEntity]
     [Serializable]
+    [GenericTypeArgument(ArgumentName = "TIdentity", ManifestKey = "Identity")]
     public class SecurityGroupMember<TIdentity,TSecurityGroup> : BaseOwnerEntity<TIdentity>
         where TIdentity : DynamicEntity
         where TSecurityGroup : SecurityGroup<TIdentity>
@@ -81,6 +85,7 @@ namespace EAVFW.Extensions.SecurityModel
 
     [BaseEntity]
     [Serializable]
+    [GenericTypeArgument(ArgumentName = "TIdentity", ManifestKey = "Identity")]
     public class SecurityRoleAssignment<TIdentity> : BaseOwnerEntity<TIdentity> where TIdentity : DynamicEntity
     {
 
@@ -97,6 +102,7 @@ namespace EAVFW.Extensions.SecurityModel
 
     [BaseEntity]
     [Serializable]
+    [GenericTypeArgument(ArgumentName = "TIdentity", ManifestKey = "Identity")]
     public class RecordShare<TIdentity> : BaseOwnerEntity<TIdentity> where TIdentity : DynamicEntity
     {
 
@@ -125,6 +131,7 @@ namespace EAVFW.Extensions.SecurityModel
 
     [BaseEntity]
     [Serializable]
+    [GenericTypeArgument(ArgumentName = "TIdentity", ManifestKey = "Identity")]
     public class SecurityGroup<TIdentity> : BaseOwnerEntity<TIdentity> where TIdentity : DynamicEntity
     {
 
