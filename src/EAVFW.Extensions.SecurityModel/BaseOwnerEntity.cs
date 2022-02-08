@@ -143,7 +143,7 @@ namespace EAVFW.Extensions.SecurityModel
     }
 
 
-    [BaseEntity]
+    [BaseEntity(EntityKey = "Identity")]
     [Serializable]
     
     public class IdentityBase : BaseOwnerEntity<IdentityBase>
