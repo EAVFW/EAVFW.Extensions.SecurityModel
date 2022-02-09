@@ -73,6 +73,7 @@ namespace EAVFW.Extensions.SecurityModel
 
 
 
+
                 var query = from record in ownerKnown
                             where
                                 allpermissions.Any(
