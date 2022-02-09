@@ -15,7 +15,7 @@ namespace EAVFW.Extensions.SecurityModel
     [BaseEntity]
     [Serializable]
     [GenericTypeArgument(ArgumentName = "TIdentity", ManifestKey = "Identity")]
-    public class BaseOwnerEntity<TIdentity> : BaseIdEntity<TIdentity> where TIdentity : IdentityBase
+    public class BaseOwnerEntity<TIdentity> : BaseIdEntity<TIdentity> where TIdentity : DynamicEntity
     {
         [DataMember(Name = "ownerid")]
         [JsonProperty("ownerid")]
@@ -29,144 +29,194 @@ namespace EAVFW.Extensions.SecurityModel
         public TIdentity Owner { get; set; }
     }
 
-    [BaseEntity(EntityKey = "Permission")]
-    [Serializable]
-    [GenericTypeArgument(ArgumentName = "TIdentity", ManifestKey = "Identity")]
-    public class PermissionBase<TIdentity> : BaseOwnerEntity<TIdentity> where TIdentity : IdentityBase
+    //[BaseEntity(EntityKey = "Permission")]
+    //[Serializable]
+    //[GenericTypeArgument(ArgumentName = "TIdentity", ManifestKey = "Identity")]
+    //public class PermissionBase<TIdentity> : BaseOwnerEntity<TIdentity> where TIdentity : IdentityBase
+    //{
+    //    [DataMember(Name = "name")]
+    //    [JsonProperty("name")]
+    //    [JsonPropertyName("name")]
+    //    [PrimaryField()]
+    //    public String Name { get; set; }
+    //}
+
+    //[BaseEntity]
+    //[Serializable]
+    //[GenericTypeArgument(ArgumentName = "TIdentity", ManifestKey = "Identity")]
+    //public class SecurityRolePermissionBase<TIdentity> : BaseOwnerEntity<TIdentity> where TIdentity : IdentityBase
+    //{
+    //    [DataMember(Name = "permissionid")]
+    //    [JsonProperty("permissionid")]
+    //    [JsonPropertyName("permissionid")]
+    //    public Guid? PermissionId { get; set; }
+
+    //    [DataMember(Name = "securityroleid")]
+    //    [JsonProperty("securityroleid")]
+    //    [JsonPropertyName("securityroleid")]
+    //    public Guid? SecurityRoleId { get; set; }
+    //}
+
+    //[BaseEntity]
+    //[Serializable]
+    //[GenericTypeArgument(ArgumentName = "TSecurityGroup", ManifestKey = "Security Group")]
+    //[GenericTypeArgument(ArgumentName = "TIdentity", ManifestKey = "Identity")]
+    //public class SecurityGroupMemberBase<TSecurityGroup,TIdentity> : BaseOwnerEntity<TIdentity> 
+    //    where TIdentity : IdentityBase
+    //      where TSecurityGroup : SecurityGroupBase<TIdentity>
+    //{
+    //    [DataMember(Name = "securitygroupid")]
+    //    [JsonProperty("securitygroupid")]
+    //    [JsonPropertyName("securitygroupid")]
+    //    public Guid? SecurityGroupId { get; set; }
+
+
+    //    [DataMember(Name = "identityid")]
+    //    [JsonProperty("identityid")]
+    //    [JsonPropertyName("identityid")]
+    //    public Guid? IdentityId { get; set; }
+
+
+    //    [ForeignKey("SecurityGroupId")]
+    //    [JsonProperty("securitygroup")]
+    //    [JsonPropertyName("securitygroup")]
+    //    [DataMember(Name = "securitygroup")]
+    //    public TSecurityGroup SecurityGroup { get; set; }
+    //}
+
+    //[BaseEntity]
+    //[Serializable]
+    //[GenericTypeArgument(ArgumentName = "TIdentity", ManifestKey = "Identity")]
+    //public class SecurityRoleAssignmentBase<TIdentity> : BaseOwnerEntity<TIdentity> where TIdentity : IdentityBase
+    //{
+
+    //    [DataMember(Name = "identityid")]
+    //    [JsonProperty("identityid")]
+    //    [JsonPropertyName("identityid")]
+    //    public Guid? IdentityId { get; set; }
+
+    //    [DataMember(Name = "securityroleid")]
+    //    [JsonProperty("securityroleid")]
+    //    [JsonPropertyName("securityroleid")]
+    //    public Guid? SecurityRoleId { get; set; }
+    //}
+
+    //[BaseEntity]
+    //[Serializable]
+    //[GenericTypeArgument(ArgumentName = "TIdentity", ManifestKey = "Identity")]
+    //public class RecordShareBase<TIdentity> : BaseOwnerEntity<TIdentity> where TIdentity : IdentityBase
+    //{
+
+    //    [DataMember(Name = "permissionid")]
+    //    [JsonProperty("permissionid")]
+    //    [JsonPropertyName("permissionid")]
+    //    public Guid? PermissionId { get; set; }
+
+    //    [DataMember(Name = "entityname")]
+    //    [JsonProperty("entityname")]
+    //    [JsonPropertyName("entityname")]
+    //    public String EntityName { get; set; }
+
+    //    [DataMember(Name = "identity")]
+    //    [JsonProperty("identity")]
+    //    [JsonPropertyName("identity")]
+    //    [PrimaryField()]
+    //    public String Identity { get; set; }
+
+    //    [DataMember(Name = "recordid")]
+    //    [JsonProperty("recordid")]
+    //    [JsonPropertyName("recordid")]
+    //    public Guid? RecordId { get; set; }
+
+    //}
+
+    ////[BaseEntity]
+    ////[Serializable]
+    ////[GenericTypeArgument(ArgumentName = "TIdentity", ManifestKey = "Identity")]
+    ////public class SecurityGroupBase<TIdentity> : IdentityBase
+    ////{
+
+    ////    [DataMember(Name = "isbusinessunit")]
+    ////    [JsonProperty("isbusinessunit")]
+    ////    [JsonPropertyName("isbusinessunit")]
+    ////    public Boolean? IsBusinessUnit { get; set; }
+    ////}
+
+
+    //[BaseEntity(EntityKey = "Identity")]
+    //[Serializable]
+
+    //public class IdentityBase : BaseOwnerEntity<IdentityBase>
+    //{
+
+
+    //}
+
+    [EntityInterface(EntityKey ="Permission")]
+    public interface IPermission
     {
-        [DataMember(Name = "name")]
-        [JsonProperty("name")]
-        [JsonPropertyName("name")]
-        [PrimaryField()]
-        public String Name { get; set; }
+        public Guid Id { get; set; }
+        public string Name { get; set; }
     }
-
-    [BaseEntity]
-    [Serializable]
-    [GenericTypeArgument(ArgumentName = "TIdentity", ManifestKey = "Identity")]
-    public class SecurityRolePermissionBase<TIdentity> : BaseOwnerEntity<TIdentity> where TIdentity : IdentityBase
+    [EntityInterface(EntityKey = "Identity")]
+    public interface IIDentitiy
     {
-        [DataMember(Name = "permissionid")]
-        [JsonProperty("permissionid")]
-        [JsonPropertyName("permissionid")]
-        public Guid? PermissionId { get; set; }
-
-        [DataMember(Name = "securityroleid")]
-        [JsonProperty("securityroleid")]
-        [JsonPropertyName("securityroleid")]
-        public Guid? SecurityRoleId { get; set; }
-    }
-
-    [BaseEntity]
-    [Serializable]
-    [GenericTypeArgument(ArgumentName = "TSecurityGroup", ManifestKey = "Security Group")]
-    [GenericTypeArgument(ArgumentName = "TIdentity", ManifestKey = "Identity")]
-    public class SecurityGroupMemberBase<TSecurityGroup,TIdentity> : BaseOwnerEntity<TIdentity> 
-        where TIdentity : IdentityBase
-          where TSecurityGroup : SecurityGroupBase<TIdentity>
-    {
-        [DataMember(Name = "securitygroupid")]
-        [JsonProperty("securitygroupid")]
-        [JsonPropertyName("securitygroupid")]
-        public Guid? SecurityGroupId { get; set; }
-
-
-        [DataMember(Name = "identityid")]
-        [JsonProperty("identityid")]
-        [JsonPropertyName("identityid")]
-        public Guid? IdentityId { get; set; }
-
-
-        [ForeignKey("SecurityGroupId")]
-        [JsonProperty("securitygroup")]
-        [JsonPropertyName("securitygroup")]
-        [DataMember(Name = "securitygroup")]
-        public TSecurityGroup SecurityGroup { get; set; }
-    }
-
-    [BaseEntity]
-    [Serializable]
-    [GenericTypeArgument(ArgumentName = "TIdentity", ManifestKey = "Identity")]
-    public class SecurityRoleAssignmentBase<TIdentity> : BaseOwnerEntity<TIdentity> where TIdentity : IdentityBase
-    {
-
-        [DataMember(Name = "identityid")]
-        [JsonProperty("identityid")]
-        [JsonPropertyName("identityid")]
-        public Guid? IdentityId { get; set; }
-
-        [DataMember(Name = "securityroleid")]
-        [JsonProperty("securityroleid")]
-        [JsonPropertyName("securityroleid")]
-        public Guid? SecurityRoleId { get; set; }
-    }
-
-    [BaseEntity]
-    [Serializable]
-    [GenericTypeArgument(ArgumentName = "TIdentity", ManifestKey = "Identity")]
-    public class RecordShareBase<TIdentity> : BaseOwnerEntity<TIdentity> where TIdentity : IdentityBase
-    {
-
-        [DataMember(Name = "permissionid")]
-        [JsonProperty("permissionid")]
-        [JsonPropertyName("permissionid")]
-        public Guid? PermissionId { get; set; }
-
-        [DataMember(Name = "entityname")]
-        [JsonProperty("entityname")]
-        [JsonPropertyName("entityname")]
-        public String EntityName { get; set; }
-
-        [DataMember(Name = "identity")]
-        [JsonProperty("identity")]
-        [JsonPropertyName("identity")]
-        [PrimaryField()]
-        public String Identity { get; set; }
-
-        [DataMember(Name = "recordid")]
-        [JsonProperty("recordid")]
-        [JsonPropertyName("recordid")]
-        public Guid? RecordId { get; set; }
 
     }
-
-    [BaseEntity]
-    [Serializable]
-    [GenericTypeArgument(ArgumentName = "TIdentity", ManifestKey = "Identity")]
-    public class SecurityGroupBase<TIdentity> : BaseOwnerEntity<TIdentity> where TIdentity : IdentityBase
+    [EntityInterface(EntityKey = "Security Role")]
+    public interface ISecurityRole
     {
 
-        [DataMember(Name = "isbusinessunit")]
-        [JsonProperty("isbusinessunit")]
-        [JsonPropertyName("isbusinessunit")]
+    }
+    [EntityInterface(EntityKey = "Security Role Permission")]
+    public interface ISecurityRolePermission
+    {
+        
+             public Guid SecurityRoleId { get; set; }
+        public Guid PermissionId { get; set; }
+    }
+    [EntityInterface(EntityKey = "Security Role Assignment")]
+    public interface ISecurityRoleAssignment
+    {
+        public Guid SecurityRoleId { get; set; }
+        public Guid IdentityId { get; set; }
+
+
+    }
+    [EntityInterface(EntityKey = "Security Group")]
+    public interface ISecurityGroup
+    {
+        public Guid Id { get; set; }
         public Boolean? IsBusinessUnit { get; set; }
     }
 
-
-    [BaseEntity(EntityKey = "Identity")]
-    [Serializable]
-    
-    public class IdentityBase : BaseOwnerEntity<IdentityBase>
+    [EntityInterface(EntityKey = "Security Group Member")]
+    public interface ISecurityGroupMember
     {
-
-       
+        public Guid SecurityGroupId { get; set; }
+        public Guid IdentityId { get; set; }
+        public ISecurityGroup SecurityGroup { get; set; }
     }
 
-
-
-
-
+    [EntityInterface(EntityKey = "Record Share")]
+    public interface ITRecordShare
+    {
+        public Guid PermissionId { get; set; }
+        public string EntityName { get; set; }
+        public string Identity { get; set; }
+        public Guid? RecordId { get; set; }
+    }
 
     public class OwnerBasedAuthorizationQueryExtender<
         TIdentity, TPermission, TSecurityRole, TSecurityRolePermission, TSecurityRoleAssignment, TSecurityGroup, TSecurityGroupMember, TRecordShare> : IQueryExtender 
-        where TPermission : PermissionBase<TIdentity>
-        where TIdentity : IdentityBase
-        where TSecurityRole : DynamicEntity
-        where TSecurityRolePermission : SecurityRolePermissionBase<TIdentity>
-        where TSecurityRoleAssignment: SecurityRoleAssignmentBase<TIdentity>
-        where TSecurityGroup: SecurityGroupBase<TIdentity>
-        where TSecurityGroupMember: SecurityGroupMemberBase<TSecurityGroup, TIdentity>
-        where TRecordShare: RecordShareBase<TIdentity>
+        where TPermission  : DynamicEntity, IPermission
+        where TIdentity : DynamicEntity, IIDentitiy
+        where TSecurityRole: DynamicEntity, ISecurityRole
+        where TSecurityRolePermission : DynamicEntity, ISecurityRolePermission
+        where TSecurityRoleAssignment: DynamicEntity, ISecurityRoleAssignment
+        where TSecurityGroup: DynamicEntity, ISecurityGroup
+        where TSecurityGroupMember: DynamicEntity, ISecurityGroupMember
+        where TRecordShare: DynamicEntity, ITRecordShare
     {
 
         public IQueryable ApplyTo(IQueryable metadataQuerySet, QueryContext querycontext)
