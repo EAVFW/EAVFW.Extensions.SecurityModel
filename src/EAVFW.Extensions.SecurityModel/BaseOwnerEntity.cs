@@ -159,7 +159,7 @@ namespace EAVFW.Extensions.SecurityModel
         public string Name { get; set; }
     }
     [EntityInterface(EntityKey = "Identity")]
-    public interface IIDentitiy
+    public interface IIdentity
     {
 
     }
@@ -172,14 +172,14 @@ namespace EAVFW.Extensions.SecurityModel
     public interface ISecurityRolePermission
     {
         
-             public Guid SecurityRoleId { get; set; }
-        public Guid PermissionId { get; set; }
+        public Guid? SecurityRoleId { get; set; }
+        public Guid? PermissionId { get; set; }
     }
     [EntityInterface(EntityKey = "Security Role Assignment")]
     public interface ISecurityRoleAssignment
     {
-        public Guid SecurityRoleId { get; set; }
-        public Guid IdentityId { get; set; }
+        public Guid? SecurityRoleId { get; set; }
+        public Guid? IdentityId { get; set; }
 
 
     }
@@ -193,15 +193,15 @@ namespace EAVFW.Extensions.SecurityModel
     [EntityInterface(EntityKey = "Security Group Member")]
     public interface ISecurityGroupMember
     {
-        public Guid SecurityGroupId { get; set; }
-        public Guid IdentityId { get; set; }
+        public Guid? SecurityGroupId { get; set; }
+        public Guid? IdentityId { get; set; }
         public ISecurityGroup SecurityGroup { get; set; }
     }
 
     [EntityInterface(EntityKey = "Record Share")]
     public interface ITRecordShare
     {
-        public Guid PermissionId { get; set; }
+        public Guid? PermissionId { get; set; }
         public string EntityName { get; set; }
         public string Identity { get; set; }
         public Guid? RecordId { get; set; }
@@ -210,7 +210,7 @@ namespace EAVFW.Extensions.SecurityModel
     public class OwnerBasedAuthorizationQueryExtender<
         TIdentity, TPermission, TSecurityRole, TSecurityRolePermission, TSecurityRoleAssignment, TSecurityGroup, TSecurityGroupMember, TRecordShare> : IQueryExtender 
         where TPermission  : DynamicEntity, IPermission
-        where TIdentity : DynamicEntity, IIDentitiy
+        where TIdentity : DynamicEntity, IIdentity
         where TSecurityRole: DynamicEntity, ISecurityRole
         where TSecurityRolePermission : DynamicEntity, ISecurityRolePermission
         where TSecurityRoleAssignment: DynamicEntity, ISecurityRoleAssignment
