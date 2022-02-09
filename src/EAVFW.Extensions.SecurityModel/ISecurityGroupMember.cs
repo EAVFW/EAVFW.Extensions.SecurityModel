@@ -1,0 +1,13 @@
+﻿using DotNetDevOps.Extensions.EAVFramework.Shared;
+using System;
+
+namespace EAVFW.Extensions.SecurityModel
+{
+    [EntityInterface(EntityKey = "Security Group Member")]
+    public interface ISecurityGroupMember
+    {
+        public Guid? SecurityGroupId { get; set; }
+        public Guid? IdentityId { get; set; }
+     //   public ISecurityGroup SecurityGroup { get; set; }
+    }
+}
