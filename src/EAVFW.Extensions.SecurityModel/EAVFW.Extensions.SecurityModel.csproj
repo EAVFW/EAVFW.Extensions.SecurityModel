@@ -2,8 +2,8 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>netcoreapp3.1;net5.0;net6.0</TargetFrameworks>
-		<Nullable>enable</Nullable>
-
+		 
+		<Nullable>disable</Nullable>
 		<Title>EAVFW.Extensions.SecurityModel</Title>
 		<Authors>Poul Kjeldager</Authors>
 		<Description>Extension for Security Model for EAVFW Application Building</Description>
