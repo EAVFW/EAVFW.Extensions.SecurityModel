@@ -21,6 +21,11 @@
 				}
 			}
 		},
+		"PrimaryInformation": {
+			"tab": "TAB_General",
+			"column": "COLUMN_First",
+			"section": "SECTION_General"
+		},
 		"TAB_General": {
 			"title": "General Information",
 			"locale": {
