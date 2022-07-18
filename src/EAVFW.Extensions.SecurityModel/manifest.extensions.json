@@ -440,6 +440,7 @@
 		"Signin": {
 			"pluralName": "Signins",
 			"attributes": {
+				"[merge()]": "[variables('audit')]",
 				"Identity": {
 					"readonly": true,
 					"type": {
@@ -478,13 +479,48 @@
 										"displayName": "Afvist"
 									}
 								}
+							},
+							"Used": {
+								"value": 2,
+								"locale": {
+									"1030": {
+										"displayName": "Brugt"
+									}
+								}
 							}
 						}
 					}
 				},
+				"Properties": {
+					"type": "MultilineText",
+					"readonly": true
+				},
 				"Claims": {
 					"type": "MultilineText",
 					"readonly": true
+				},
+				"SessionId": {
+					"type": {
+						"type": "Text",
+						"maxLength": 64
+					}
+				},
+				"Provider": {
+					"type": {
+						"type": "Text"
+					}
+				}
+			}
+		},
+		"System User": {
+			"TPT": "Identity",
+			"pluralName": "System Users",
+			"attributes": {
+				"Email": {
+					"type": {
+						"type": "Text",
+						"format": "Email"
+					}
 				}
 			}
 		}
