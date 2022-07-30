@@ -14,14 +14,14 @@ namespace EAVFW.Extensions.SecurityModel
         {
             if (context.Input.RowVersion == null)
             {
-                context.Input.RowVersion = await context.DB.Set(context.Input.GetType())
+                context.Input.RowVersion = await context.DB.Context.Set(context.Input.GetType())
                     .Cast<BaseIdEntity<TIdentity>>()
                     .AsNoTracking()
                     .Where(c => c.Id == context.Input.Id)
                     .Select(c => c.RowVersion)
                     .FirstOrDefaultAsync();
 
-                var prop = context.DB.Entry(context.Input).Property(x => x.RowVersion);
+                var prop = context.DB.Context.Entry(context.Input).Property(x => x.RowVersion);
                 prop.CurrentValue = prop.OriginalValue = context.Input.RowVersion;
             }
         }

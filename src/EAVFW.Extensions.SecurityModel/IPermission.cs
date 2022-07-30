@@ -70,7 +70,7 @@ namespace EAVFW.Extensions.SecurityModel
     //    public Guid? IdentityId { get; set; }
 
     //    [DataMember(Name = "securityroleid")]
-    //    [JsonProperty("securityroleid")]
+    //    [JsonProperty("securityroleid")] 
     //    [JsonPropertyName("securityroleid")]
     //    public Guid? SecurityRoleId { get; set; }
     //}
