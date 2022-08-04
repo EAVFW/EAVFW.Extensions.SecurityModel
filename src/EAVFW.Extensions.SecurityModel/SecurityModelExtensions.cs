@@ -16,7 +16,7 @@ namespace EAVFW.Extensions.SecurityModel
             builder
                 .AddPlugin<SetCreatedOnAuditFields<TDynamicContext, TIdentity>, TDynamicContext, BaseIdEntity<TIdentity>>(EntityPluginExecution.PreValidate, EntityPluginOperation.Create)
                 .AddPlugin<SetModifiedOnAuditFields<TDynamicContext, TIdentity>, TDynamicContext, BaseIdEntity<TIdentity>>(EntityPluginExecution.PreValidate, EntityPluginOperation.Update)
-                .AddPlugin<SetRowVersionIfNull<TDynamicContext, TIdentity>, TDynamicContext, BaseIdEntity<TIdentity>>(EntityPluginExecution.PreValidate, EntityPluginOperation.Update)
+                .AddPlugin<SetRowVersionIfNull<TDynamicContext, TIdentity>, TDynamicContext, BaseIdEntity<TIdentity>>(EntityPluginExecution.PreOperation, EntityPluginOperation.Update)
                 .AddPlugin<SetOwnerOnCreated<TDynamicContext, TIdentity>, TDynamicContext, BaseOwnerEntity<TIdentity>>(EntityPluginExecution.PreValidate, EntityPluginOperation.Create);
 
 
