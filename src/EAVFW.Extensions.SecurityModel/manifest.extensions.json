@@ -1,4 +1,4 @@
-{
+ï»¿{
 	"variables": {
 		"layouts": {
 			"OneColumnTemplate": {
@@ -75,7 +75,7 @@
 		},
 		"audit": {
 			"Modified On": {
-				"locale": { "1030": { "displayName": "Ændret" } },
+				"locale": { "1030": { "displayName": "Ã†ndret" } },
 				"type": {
 					"type": "DateTime",
 					"required": true
@@ -98,7 +98,7 @@
 				}
 			},
 			"Modified By": {
-				"locale": { "1030": { "displayName": "Ændret af" } },
+				"locale": { "1030": { "displayName": "Ã†ndret af" } },
 				"type": {
 					"type": "lookup",
 					"referenceType": "Identity",
@@ -407,8 +407,8 @@
 			"pluralName": "Record Shares",
 			"locale": {
 				"1030": {
-					"pluralName": "Række Deling",
-					"displayName": "Række Delinger"
+					"pluralName": "RÃ¦kke Deling",
+					"displayName": "RÃ¦kke Delinger"
 				}
 			},
 			"attributes": {
