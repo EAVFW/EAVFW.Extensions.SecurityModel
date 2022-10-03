@@ -20,12 +20,12 @@ namespace EAVFW.Extensions.SecurityModel
         [DataMember(Name = "ownerid")]
         [JsonProperty("ownerid")]
         [JsonPropertyName("ownerid")]
-        public Guid? OwnerId { get; set; }
+        public virtual Guid? OwnerId { get; set; }
 
         [ForeignKey("OwnerId")]
         [DataMember(Name = "owner")]
         [JsonProperty("owner")]
         [JsonPropertyName("owner")]
-        public TIdentity Owner { get; set; }
+        public virtual TIdentity Owner { get; set; }
     }
 }

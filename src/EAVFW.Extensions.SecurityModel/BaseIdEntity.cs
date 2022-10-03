@@ -23,39 +23,39 @@ namespace EAVFW.Extensions.SecurityModel
         [DataMember(Name = "modifiedbyid")]
         [JsonProperty("modifiedbyid")]
         [JsonPropertyName("modifiedbyid")]
-        public Guid? ModifiedById { get; set; }
+        public virtual Guid? ModifiedById { get; set; }
 
         [ForeignKey("ModifiedById")]
         [JsonProperty("modifiedby")]
         [JsonPropertyName("modifiedby")]
         [DataMember(Name = "modifiedby")]
-        public TIdentity ModifiedBy { get; set; }
+        public virtual TIdentity ModifiedBy { get; set; }
 
         [DataMember(Name = "createdbyid")]
         [JsonProperty("createdbyid")]
         [JsonPropertyName("createdbyid")]
-        public Guid? CreatedById { get; set; }
+        public virtual Guid? CreatedById { get; set; }
 
         [ForeignKey("CreatedById")]
         [JsonProperty("createdby")]
         [JsonPropertyName("createdby")]
         [DataMember(Name = "createdby")]
-        public TIdentity CreatedBy { get; set; }
+        public virtual TIdentity CreatedBy { get; set; }
 
         [DataMember(Name = "modifiedon")]
         [JsonProperty("modifiedon")]
         [JsonPropertyName("modifiedon")]
-        public DateTime? ModifiedOn { get; set; }
+        public virtual DateTime? ModifiedOn { get; set; }
 
         [DataMember(Name = "createdon")]
         [JsonProperty("createdon")]
         [JsonPropertyName("createdon")]
-        public DateTime? CreatedOn { get; set; }
+        public virtual DateTime? CreatedOn { get; set; }
 
         [DataMember(Name = "rowversion")]
         [JsonProperty("rowversion")]
         [JsonPropertyName("rowversion")]
-        public byte[] RowVersion { get; set; }
+        public virtual byte[] RowVersion { get; set; }
 
     }
 }

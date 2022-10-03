@@ -38,8 +38,8 @@ namespace EAVFW.Extensions.SecurityModel
         {
             builder.Services.AddScoped<IQueryExtender, OwnerBasedAuthorizationQueryExtender<TIdentity, TPermission, TSecurityRole, TSecurityRolePermission, TSecurityRoleAssignment, TSecurityGroup, TSecurityGroupMember, TRecordShare>>();
             builder.Services.AddScoped<IPermissionStore, PermissionStore<TContext, TIdentity, TPermission, TSecurityRole, TSecurityRolePermission, TSecurityRoleAssignment, TSecurityGroup, TSecurityGroupMember, TRecordShare>>();
-            builder.Services.AddScoped<IAuthorizationHandler, PermissionBasedCreateRecordRequirementHandler<DynamicContext>>();
-            builder.Services.AddScoped<IAuthorizationHandler, PermissionBasedUpdateRecordRequirementHandler<DynamicContext>>();
+            builder.Services.AddScoped<IAuthorizationHandler, PermissionBasedCreateRecordRequirementHandler<TContext>>();
+            builder.Services.AddScoped<IAuthorizationHandler, PermissionBasedUpdateRecordRequirementHandler<TContext>>();
             return builder;
         }
     }
