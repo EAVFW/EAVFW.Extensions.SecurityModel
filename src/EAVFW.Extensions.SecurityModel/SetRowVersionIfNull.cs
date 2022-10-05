@@ -1,5 +1,5 @@
-﻿using DotNetDevOps.Extensions.EAVFramework;
-using DotNetDevOps.Extensions.EAVFramework.Plugins;
+﻿using EAVFramework;
+using EAVFramework.Plugins;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;

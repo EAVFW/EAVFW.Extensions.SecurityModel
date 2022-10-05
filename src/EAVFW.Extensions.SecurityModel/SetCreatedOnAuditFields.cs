@@ -1,5 +1,5 @@
-﻿using DotNetDevOps.Extensions.EAVFramework;
-using DotNetDevOps.Extensions.EAVFramework.Plugins;
+﻿using EAVFramework;
+using EAVFramework.Plugins;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;

@@ -1,7 +1,7 @@
-﻿using DotNetDevOps.Extensions.EAVFramework;
-using DotNetDevOps.Extensions.EAVFramework.Configuration;
-using DotNetDevOps.Extensions.EAVFramework.Endpoints;
-using DotNetDevOps.Extensions.EAVFramework.Plugins;
+﻿using EAVFramework;
+using EAVFramework.Configuration;
+using EAVFramework.Endpoints;
+using EAVFramework.Plugins;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -36,8 +36,8 @@ namespace EAVFW.Extensions.SecurityModel
         where TSecurityGroupMember : DynamicEntity, ISecurityGroupMember
         where TRecordShare : DynamicEntity, ITRecordShare
         {
-            builder.Services.AddScoped<IQueryExtender, OwnerBasedAuthorizationQueryExtender<TIdentity, TPermission, TSecurityRole, TSecurityRolePermission, TSecurityRoleAssignment, TSecurityGroup, TSecurityGroupMember, TRecordShare>>();
-            builder.Services.AddScoped<IPermissionStore, PermissionStore<TContext, TIdentity, TPermission, TSecurityRole, TSecurityRolePermission, TSecurityRoleAssignment, TSecurityGroup, TSecurityGroupMember, TRecordShare>>();
+            builder.Services.AddScoped<IQueryExtender<TContext>, OwnerBasedAuthorizationQueryExtender<TContext,TIdentity, TPermission, TSecurityRole, TSecurityRolePermission, TSecurityRoleAssignment, TSecurityGroup, TSecurityGroupMember, TRecordShare>>();
+            builder.Services.AddScoped<IPermissionStore<TContext>, PermissionStore<TContext, TIdentity, TPermission, TSecurityRole, TSecurityRolePermission, TSecurityRoleAssignment, TSecurityGroup, TSecurityGroupMember, TRecordShare>>();
             builder.Services.AddScoped<IAuthorizationHandler, PermissionBasedCreateRecordRequirementHandler<TContext>>();
             builder.Services.AddScoped<IAuthorizationHandler, PermissionBasedUpdateRecordRequirementHandler<TContext>>();
             return builder;

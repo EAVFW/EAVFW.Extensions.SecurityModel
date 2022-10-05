@@ -1,5 +1,5 @@
-﻿using DotNetDevOps.Extensions.EAVFramework;
-using DotNetDevOps.Extensions.EAVFramework.Shared;
+﻿using EAVFramework;
+using EAVFramework.Shared;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -9,7 +9,8 @@ using System.Security.Claims;
 namespace EAVFW.Extensions.SecurityModel
 {
     public class OwnerBasedAuthorizationQueryExtender<
-        TIdentity, TPermission, TSecurityRole, TSecurityRolePermission, TSecurityRoleAssignment, TSecurityGroup, TSecurityGroupMember, TRecordShare> : IQueryExtender 
+        TContext, TIdentity, TPermission, TSecurityRole, TSecurityRolePermission, TSecurityRoleAssignment, TSecurityGroup, TSecurityGroupMember, TRecordShare> : IQueryExtender<TContext> 
+        where TContext : DynamicContext
         where TPermission  : DynamicEntity, IPermission
         where TIdentity : DynamicEntity, IIdentity
         where TSecurityRole: DynamicEntity, ISecurityRole
@@ -20,7 +21,7 @@ namespace EAVFW.Extensions.SecurityModel
         where TRecordShare: DynamicEntity, ITRecordShare
     {
 
-        public IQueryable ApplyTo(IQueryable metadataQuerySet, QueryContext querycontext)
+        public IQueryable ApplyTo(IQueryable metadataQuerySet, QueryContext<TContext> querycontext)
         {
             var context = querycontext.Context;
             var permissions = context.Set<TPermission>();

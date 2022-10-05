@@ -1,5 +1,5 @@
-﻿using DotNetDevOps.Extensions.EAVFramework;
-using DotNetDevOps.Extensions.EAVFramework.Shared;
+﻿using EAVFramework;
+using EAVFramework.Shared;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;

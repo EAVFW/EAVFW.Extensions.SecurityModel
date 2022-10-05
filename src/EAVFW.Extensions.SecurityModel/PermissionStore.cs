@@ -1,7 +1,7 @@
-﻿using DotNetDevOps.Extensions.EAVFramework;
-using DotNetDevOps.Extensions.EAVFramework.Configuration;
-using DotNetDevOps.Extensions.EAVFramework.Endpoints;
-using DotNetDevOps.Extensions.EAVFramework.Plugins;
+﻿using EAVFramework;
+using EAVFramework.Configuration;
+using EAVFramework.Endpoints;
+using EAVFramework.Plugins;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,7 +16,7 @@ namespace EAVFW.Extensions.SecurityModel
 {
 
     public class PermissionStore<
-       TContext, TIdentity, TPermission, TSecurityRole, TSecurityRolePermission, TSecurityRoleAssignment, TSecurityGroup, TSecurityGroupMember, TRecordShare> : IPermissionStore
+       TContext, TIdentity, TPermission, TSecurityRole, TSecurityRolePermission, TSecurityRoleAssignment, TSecurityGroup, TSecurityGroupMember, TRecordShare> : IPermissionStore<TContext>
         where TContext : DynamicContext
         where TPermission : DynamicEntity, IPermission
         where TIdentity : DynamicEntity, IIdentity
