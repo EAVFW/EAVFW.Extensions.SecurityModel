@@ -10,9 +10,9 @@ namespace EAVFW.Extensions.SecurityModel
     AuthorizationHandler<CreateRecordRequirement, EAVResource>
     where TContext : DynamicContext
     {
-        private readonly IPermissionStore _permissionStore;
+        private readonly IPermissionStore<TContext> _permissionStore;
 
-        public PermissionBasedCreateRecordRequirementHandler(IPermissionStore permissionStore)
+        public PermissionBasedCreateRecordRequirementHandler(IPermissionStore<TContext> permissionStore)
         {
             _permissionStore = permissionStore;
         }
