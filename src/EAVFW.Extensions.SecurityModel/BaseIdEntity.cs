@@ -16,46 +16,53 @@ namespace EAVFW.Extensions.SecurityModel
     {
 
         [DataMember(Name = "id")]
+        [EntityField(AttributeKey ="Id")]
         [JsonProperty("id")]
         [JsonPropertyName("id")]
         public Guid Id { get; set; }
 
         [DataMember(Name = "modifiedbyid")]
+        [EntityField(AttributeKey = "Modified By")]
         [JsonProperty("modifiedbyid")]
         [JsonPropertyName("modifiedbyid")]
-        public virtual Guid? ModifiedById { get; set; }
+        public Guid? ModifiedById { get; set; }
 
         [ForeignKey("ModifiedById")]
         [JsonProperty("modifiedby")]
         [JsonPropertyName("modifiedby")]
         [DataMember(Name = "modifiedby")]
-        public virtual TIdentity ModifiedBy { get; set; }
+        public TIdentity ModifiedBy { get; set; }
 
         [DataMember(Name = "createdbyid")]
+        [EntityField(AttributeKey = "Created By")]
         [JsonProperty("createdbyid")]
         [JsonPropertyName("createdbyid")]
-        public virtual Guid? CreatedById { get; set; }
+        public Guid? CreatedById { get; set; }
 
         [ForeignKey("CreatedById")]
+      
         [JsonProperty("createdby")]
         [JsonPropertyName("createdby")]
         [DataMember(Name = "createdby")]
-        public virtual TIdentity CreatedBy { get; set; }
+        public TIdentity CreatedBy { get; set; }
 
         [DataMember(Name = "modifiedon")]
+        [EntityField(AttributeKey = "Modified On")]
         [JsonProperty("modifiedon")]
         [JsonPropertyName("modifiedon")]
-        public virtual DateTime? ModifiedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
 
         [DataMember(Name = "createdon")]
+        [EntityField(AttributeKey = "Created On")]
         [JsonProperty("createdon")]
         [JsonPropertyName("createdon")]
-        public virtual DateTime? CreatedOn { get; set; }
+        public DateTime? CreatedOn { get; set; }
 
         [DataMember(Name = "rowversion")]
+        [EntityField(AttributeKey = "Row Version")]
         [JsonProperty("rowversion")]
         [JsonPropertyName("rowversion")]
-        public virtual byte[] RowVersion { get; set; }
+        public byte[] RowVersion { get; set; }
 
     }
 }

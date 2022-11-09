@@ -18,14 +18,15 @@ namespace EAVFW.Extensions.SecurityModel
     public class BaseOwnerEntity<TIdentity> : BaseIdEntity<TIdentity> where TIdentity : DynamicEntity
     {
         [DataMember(Name = "ownerid")]
+        [EntityField(AttributeKey = "Owner")]
         [JsonProperty("ownerid")]
         [JsonPropertyName("ownerid")]
-        public virtual Guid? OwnerId { get; set; }
+        public Guid? OwnerId { get; set; }
 
         [ForeignKey("OwnerId")]
         [DataMember(Name = "owner")]
         [JsonProperty("owner")]
         [JsonPropertyName("owner")]
-        public virtual TIdentity Owner { get; set; }
+        public TIdentity Owner { get; set; }
     }
 }
