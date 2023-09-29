@@ -1,4 +1,5 @@
 ﻿using EAVFramework;
+using EAVFramework.Endpoints.Query;
 using EAVFramework.Shared;
 using Microsoft.EntityFrameworkCore;
 using System;

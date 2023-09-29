@@ -1,6 +1,7 @@
 ﻿using EAVFramework;
 using EAVFramework.Configuration;
 using EAVFramework.Endpoints;
+using EAVFramework.Endpoints.Query;
 using EAVFramework.Plugins;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
