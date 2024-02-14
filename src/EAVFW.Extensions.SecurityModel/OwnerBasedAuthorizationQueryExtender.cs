@@ -1,4 +1,4 @@
-﻿using EAVFramework;
+using EAVFramework;
 using EAVFramework.Endpoints.Query;
 using EAVFramework.Shared;
 using Microsoft.EntityFrameworkCore;
@@ -73,27 +73,33 @@ namespace EAVFW.Extensions.SecurityModel
                 var allpermissions = permissionSetFromGroups.Union(permisionSet);
 
 
+               
+                var q1 = from record in ownerKnown
+                         where
+                             allpermissions.Any(
+                                 permision => permision == $"{entitySchemaName}ReadGlobal" ||     //Either you have ReadGlobal                      
+                                 (permision == $"{entitySchemaName}Read" && (record.OwnerId == identity || securityGroupsForIdentity.Any(g => g == record.OwnerId))) || //Or you have read and owns the record, or a group that you are part of owns the record.
+                                 (permision == $"{entitySchemaName}ReadBU" && (
+                                      (from sgm in securityGroupMembers
+                                       join sg in securityGroups on sgm.SecurityGroupId equals sg.Id
+                                       where sgm.IdentityId == record.OwnerId && sg.IsBusinessUnit == true
+                                       select sg.Id)
+                                          .Any(sg => securityGroupMembers.Any(sgm => sgm.IdentityId == identity && sgm.SecurityGroupId == sg))))
+                                  )
+                         select record.Id;
+
+               
 
 
 
-                var query = from record in ownerKnown
-                            where
-                                allpermissions.Any(
-                                    permision => permision == $"{entitySchemaName}ReadGlobal" ||     //Either you have ReadGlobal                      
-                                    (permision == $"{entitySchemaName}Read" && (record.OwnerId == identity || securityGroupsForIdentity.Any(g => g == record.OwnerId))) || //Or you have read and owns the record, or a group that you are part of owns the record.
-                                    (permision == $"{entitySchemaName}ReadBU" && (
-                                         (from sgm in securityGroupMembers
-                                         join sg in securityGroups on sgm.SecurityGroupId equals sg.Id
-                                         where sgm.IdentityId == record.OwnerId && sg.IsBusinessUnit == true
-                                         select sg.Id)//.Include("SecurityGroup")
-                                           // .Where(sgm => sgm.IdentityId == record.OwnerId && sgm.SecurityGroup.IsBusinessUnit == true)
-                                           //  .Select(sgm => sgm.SecurityGroupId)
-                                             .Any(sg => securityGroupMembers.Any(sgm => sgm.IdentityId == identity && sgm.SecurityGroupId == sg))))
-                                     ) ||
+                var q2 = from record in ownerKnown
+                            where                               
                                 shares.Any(s => s.RecordId == record.Id && s.Name == $"{entitySchemaName}Read")
-                            select record;
+                            select record.Id;
 
-                return query;
+                var betterQuery = from record in ownerKnown where (q1.Union(q2).Any(c => c == record.Id)) select record;
+
+                return betterQuery;
 
             }
 
