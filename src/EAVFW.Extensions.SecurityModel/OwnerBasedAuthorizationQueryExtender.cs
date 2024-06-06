@@ -80,11 +80,23 @@ namespace EAVFW.Extensions.SecurityModel
                                  permision => permision == $"{entitySchemaName}ReadGlobal" ||     //Either you have ReadGlobal                      
                                  (permision == $"{entitySchemaName}Read" && (record.OwnerId == identity || securityGroupsForIdentity.Any(g => g == record.OwnerId))) || //Or you have read and owns the record, or a group that you are part of owns the record.
                                  (permision == $"{entitySchemaName}ReadBU" && (
-                                      (from sgm in securityGroupMembers
+                                      
+                                        /**
+                                         * Find security groups that is business units that the owner is part of
+                                         */
+                                        (from sgm in securityGroupMembers
                                        join sg in securityGroups on sgm.SecurityGroupId equals sg.Id
-                                       where sgm.IdentityId == record.OwnerId && sg.IsBusinessUnit == true
+                                       where 
+                                            sgm.IdentityId == record.OwnerId && sg.IsBusinessUnit == true                                            
                                        select sg.Id)
-                                          .Any(sg => securityGroupMembers.Any(sgm => sgm.IdentityId == identity && sgm.SecurityGroupId == sg))))
+                                       /**
+                                        * and records owned by a business unit is
+                                        */
+                                       .Union(from sg in securityGroups where sg.Id == record.OwnerId && sg.IsBusinessUnit == true select sg.Id)
+                                       /**
+                                        *  if the user is part of those units, the record is readable by the user
+                                        */
+                                       .Any(sg => securityGroupMembers.Any(sgm => sgm.IdentityId == identity && sgm.SecurityGroupId == sg))))
                                   )
                          select record.Id;
 
