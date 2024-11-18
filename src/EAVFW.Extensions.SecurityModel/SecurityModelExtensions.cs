@@ -1,4 +1,4 @@
-﻿using EAVFramework;
+using EAVFramework;
 using EAVFramework.Configuration;
 using EAVFramework.Endpoints;
 using EAVFramework.Endpoints.Query;
@@ -41,6 +41,27 @@ namespace EAVFW.Extensions.SecurityModel
             builder.Services.AddScoped<IPermissionStore<TContext>, PermissionStore<TContext, TIdentity, TPermission, TSecurityRole, TSecurityRolePermission, TSecurityRoleAssignment, TSecurityGroup, TSecurityGroupMember, TRecordShare>>();
             builder.Services.AddScoped<IAuthorizationHandler, PermissionBasedCreateRecordRequirementHandler<TContext>>();
             builder.Services.AddScoped<IAuthorizationHandler, PermissionBasedUpdateRecordRequirementHandler<TContext>>();
+            return builder;
+        }
+
+        public static IEAVFrameworkBuilder WithPermissionBasedAuthorization<TContext>(this IEAVFrameworkBuilder builder)
+
+        where TContext : DynamicContext
+       
+        {
+            builder.Services.AddDynamicInterface<IPermission>();
+            builder.Services.AddDynamicInterface<IIdentity>();
+            builder.Services.AddDynamicInterface<ISecurityRole>();
+            builder.Services.AddDynamicInterface<ISecurityRolePermission>();
+            builder.Services.AddDynamicInterface<ISecurityRoleAssignment>();
+            builder.Services.AddDynamicInterface<ISecurityGroup>();
+            builder.Services.AddDynamicInterface<ISecurityGroupMember>();
+            builder.Services.AddDynamicInterface<ITRecordShare>();
+
+            builder.Services.AddDynamicScoped<TContext,IQueryExtender<TContext>>( typeof(OwnerBasedAuthorizationQueryExtender<,,,,,,,,>));
+            builder.Services.AddDynamicScoped<TContext,IPermissionStore<TContext>>(typeof(PermissionStore<,,,,,,,,>));
+            builder.Services.AddDynamicScoped<TContext,IAuthorizationHandler>(typeof( PermissionBasedCreateRecordRequirementHandler<>));
+            builder.Services.AddDynamicScoped<TContext,IAuthorizationHandler>(typeof( PermissionBasedUpdateRecordRequirementHandler<>));
             return builder;
         }
     }
