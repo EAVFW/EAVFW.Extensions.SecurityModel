@@ -1,8 +1,9 @@
-﻿using EAVFramework;
+using EAVFramework;
 using EAVFramework.Configuration;
 using EAVFramework.Endpoints;
 using EAVFramework.Endpoints.Query;
 using EAVFramework.Plugins;
+using EAVFramework.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -25,7 +26,7 @@ namespace EAVFW.Extensions.SecurityModel
 
         }
 
-        public static IEAVFrameworkBuilder WithPermissionBasedAuthorization<TContext, TIdentity, TPermission, TSecurityRole, TSecurityRolePermission, TSecurityRoleAssignment, TSecurityGroup, TSecurityGroupMember, TRecordShare>(this IEAVFrameworkBuilder builder)
+        public static IEAVFrameworkBuilder WithPermissionBasedAuthorization<TContext, TIdentity, TPermission, TSecurityRole, TSecurityRolePermission, TSecurityRoleAssignment, TSecurityGroup, TSecurityGroupMember, TRecordShare>(this IEAVFrameworkBuilder builder, bool include_authorization_plugins=true)
             
         where TContext : DynamicContext
         where TPermission : DynamicEntity, IPermission
@@ -41,6 +42,11 @@ namespace EAVFW.Extensions.SecurityModel
             builder.Services.AddScoped<IPermissionStore<TContext>, PermissionStore<TContext, TIdentity, TPermission, TSecurityRole, TSecurityRolePermission, TSecurityRoleAssignment, TSecurityGroup, TSecurityGroupMember, TRecordShare>>();
             builder.Services.AddScoped<IAuthorizationHandler, PermissionBasedCreateRecordRequirementHandler<TContext>>();
             builder.Services.AddScoped<IAuthorizationHandler, PermissionBasedUpdateRecordRequirementHandler<TContext>>();
+            if (include_authorization_plugins)
+            {
+                builder.Services.AddDynamicContextPlugin<TContext>(typeof(ValidateUpdatePermissionPlugin<,>));
+                builder.Services.AddDynamicContextPlugin<TContext>(typeof(ValidateCreatePermissionPlugin<,>));
+            }
             return builder;
         }
     }
