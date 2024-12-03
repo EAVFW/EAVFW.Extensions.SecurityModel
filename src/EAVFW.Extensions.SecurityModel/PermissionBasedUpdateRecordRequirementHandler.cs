@@ -1,7 +1,9 @@
-﻿using EAVFramework;
+using EAVFramework;
 using EAVFramework.Endpoints;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Threading.Tasks;
 
 namespace EAVFW.Extensions.SecurityModel
@@ -10,19 +12,20 @@ namespace EAVFW.Extensions.SecurityModel
   AuthorizationHandler<UpdateRecordRequirement, EAVResource>
   where TContext : DynamicContext
     {
-        private readonly IPermissionStore<TContext> _permissionStore;
+        private readonly IServiceProvider _serviceProvider;
 
-        public PermissionBasedUpdateRecordRequirementHandler(IPermissionStore<TContext> permissionStore)
+        public PermissionBasedUpdateRecordRequirementHandler(IServiceProvider serviceProvider)
         {
-            _permissionStore = permissionStore;
+            
+            _serviceProvider = serviceProvider;
         }
 
 
         protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, UpdateRecordRequirement requirement, EAVResource resource)
         {
             var entitySchemaName = resource.EntityCollectionSchemaName;
-
-            var hasPemission = await _permissionStore.GetPermissions(context.User, resource).AnyAsync(permision => permision == $"{entitySchemaName}UpdateGlobal" || (permision == $"{entitySchemaName}Update") || (permision == $"{entitySchemaName}UpdateBU"));
+            var permissionStore = _serviceProvider.GetRequiredService<IPermissionStore<TContext>>();
+            var hasPemission = await permissionStore.GetPermissions(context.User, resource).AnyAsync(permision => permision == $"{entitySchemaName}UpdateGlobal" || (permision == $"{entitySchemaName}Update") || (permision == $"{entitySchemaName}UpdateBU"));
 
 
             if (hasPemission)

@@ -63,11 +63,14 @@ namespace EAVFW.Extensions.SecurityModel
             builder.Services.AddDynamicInterface<ISecurityGroup>();
             builder.Services.AddDynamicInterface<ISecurityGroupMember>();
             builder.Services.AddDynamicInterface<ITRecordShare>();
-
+            
             builder.Services.AddDynamicScoped<TContext,IQueryExtender<TContext>>( typeof(OwnerBasedAuthorizationQueryExtender<,,,,,,,,>));
             builder.Services.AddDynamicScoped<TContext,IPermissionStore<TContext>>(typeof(PermissionStore<,,,,,,,,>));
-            builder.Services.AddDynamicScoped<TContext,IAuthorizationHandler>(typeof( PermissionBasedCreateRecordRequirementHandler<>));
-            builder.Services.AddDynamicScoped<TContext,IAuthorizationHandler>(typeof( PermissionBasedUpdateRecordRequirementHandler<>));
+
+            builder.Services.AddScoped(typeof(PermissionBasedCreateRecordRequirementHandler<>), typeof(PermissionBasedCreateRecordRequirementHandler<>));
+            builder.Services.AddScoped(typeof(PermissionBasedUpdateRecordRequirementHandler<>), typeof(PermissionBasedUpdateRecordRequirementHandler<>));
+
+            builder.Services.AddScoped<IAuthorizationHandlerProvider, EAVAuthorizationHandlerProvider>();
             return builder;
         }
     }
